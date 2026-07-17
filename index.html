@@ -873,6 +873,109 @@ body.lb-open{overflow:hidden;}
 @media(min-width:720px){
   .carousel-slide{flex:0 0 300px;max-width:300px;}
 }
+
+/* ════ PLAY OVERLAY ════ */
+.play-overlay{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  z-index:2;cursor:pointer;
+  background:rgba(0,0,0,0.20);
+  transition:opacity .3s var(--ease),background .3s var(--ease);
+}
+.play-overlay.hidden{opacity:0;pointer-events:none;}
+.play-overlay:hover{background:rgba(0,0,0,0.10);}
+.play-btn-circle{
+  width:68px;height:68px;border-radius:50%;
+  background:rgba(255,255,255,0.14);
+  border:2px solid rgba(255,255,255,0.55);
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:transform .2s var(--ease),background .2s var(--ease);
+}
+.play-overlay:hover .play-btn-circle{background:rgba(255,255,255,0.26);transform:scale(1.08);}
+
+/* ════ PRICE GRID ════ */
+.price-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:20px;
+  max-width:860px;
+  margin:0 auto;
+}
+@media(min-width:720px){
+  .price-grid{grid-template-columns:1fr 1fr;align-items:start;}
+}
+.price-card--basic{
+  background:rgba(255,255,255,0.03)!important;
+  border-color:rgba(255,255,255,0.07)!important;
+}
+.price-card--basic .price__label{
+  color:var(--fg-dim);
+  background:rgba(255,255,255,.05);
+  border-color:rgba(255,255,255,.10);
+}
+.price-card--basic .price__big{color:var(--fg-mute);}
+.price-card--basic .price__big .currency{color:var(--fg-dim);}
+.price-card--basic .price__strike{color:rgba(242,239,233,.25);}
+.price-card--basic .price__meta{color:var(--fg-dim);}
+.price-card--basic .price__list li::before{color:var(--fg-dim);}
+.price-card--basic .price__list li{color:var(--fg-dim);}
+.price-card--basic .price__trust{color:rgba(242,239,233,.22);}
+.price-card--basic .btn-basic{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;margin-top:22px;height:52px;
+  border-radius:var(--r-xl);
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(242,239,233,.35);
+  font-size:var(--t-base);
+  background:transparent;
+  cursor:pointer;
+  transition:color .25s,border-color .25s;
+}
+.price-card--basic .btn-basic:hover{color:var(--fg-mute);border-color:rgba(255,255,255,.22);}
+
+.price-card--featured{
+  position:relative;
+  border-color:rgba(146,142,220,.35)!important;
+}
+.price-card--featured::after{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;
+  background:radial-gradient(60% 80% at 50% 0%, rgba(146,142,220,0.4), transparent 70%);
+  pointer-events:none;z-index:-1;filter:blur(20px);
+}
+.price-badge-top{
+  display:inline-flex;align-items:center;gap:6px;
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--accent);color:#fff;
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 14px;border-radius:999px;white-space:nowrap;
+}
+.price__list{
+  list-style:none;
+  text-align:left;
+  margin:18px 0 4px;
+  display:flex;flex-direction:column;gap:9px;
+}
+.price__list li{
+  font-size:13.5px;
+  color:var(--fg-mute);
+  display:flex;align-items:flex-start;gap:9px;
+  line-height:1.4;
+}
+.price__list li::before{
+  content:"✓";
+  color:var(--accent);font-weight:700;
+  flex-shrink:0;margin-top:1px;
+}
+.price__list li strong{color:var(--fg);}
+.price__list .list-sep{
+  display:block;
+  border-top:1px solid rgba(255,255,255,.08);
+  margin:4px 0 2px;
+  width:100%;
+  pointer-events:none;
+}
+.price__list .list-sep::before{display:none;}
 </style>
 </head>
 <body id="top">
@@ -883,7 +986,7 @@ body.lb-open{overflow:hidden;}
   <nav class="hdr__nav" aria-label="Navegación principal">
     <a href="#pack">Programa</a>
     <a href="#galeria">Método</a>
-    <a href="#para-quem">Para quién</a>
+    <a href="#certificado">Certificado</a>
     <a href="#preco">Inscribirme</a>
   </nav>
   <a class="pill" href="#" target="_blank" rel="noopener">@fulltherapy</a>
@@ -1016,16 +1119,28 @@ body.lb-open{overflow:hidden;}
   <div class="carousel-outer" id="carouselOuter">
     <div class="carousel-track" id="carouselTrack">
       <div class="carousel-slide is-active" data-idx="0">
-        <video src="depoimento%201.mp4" playsinline muted loop preload="metadata"></video>
+        <video src="depoimento%201.mp4" playsinline preload="metadata"></video>
+        <div class="play-overlay" data-play-overlay>
+          <div class="play-btn-circle"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
       </div>
       <div class="carousel-slide" data-idx="1">
-        <video src="depoimento%202.mp4" playsinline muted preload="metadata"></video>
+        <video src="depoimento%202.mp4" playsinline preload="metadata"></video>
+        <div class="play-overlay" data-play-overlay>
+          <div class="play-btn-circle"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
       </div>
       <div class="carousel-slide" data-idx="2">
-        <video src="depoimento%203.mp4" playsinline muted preload="metadata"></video>
+        <video src="depoimento%203.mp4" playsinline preload="metadata"></video>
+        <div class="play-overlay" data-play-overlay>
+          <div class="play-btn-circle"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
       </div>
       <div class="carousel-slide" data-idx="3">
-        <video src="depoimento%204.mp4" playsinline muted preload="metadata"></video>
+        <video src="depoimento%204.mp4" playsinline preload="metadata"></video>
+        <div class="play-overlay" data-play-overlay>
+          <div class="play-btn-circle"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1116,28 +1231,112 @@ body.lb-open{overflow:hidden;}
   </div>
 </section>
 
+<!-- ═══════ SECTION — CERTIFICADO ═══════ -->
+<section id="certificado" class="tight">
+  <div class="wrap">
+    <div class="section-head reveal" style="text-align:center;max-width:none;">
+      <span class="kicker">Reconocimiento oficial</span>
+      <h2>Tu certificado <em class="serif">internacional</em></h2>
+      <p class="lead" style="max-width:52ch;margin-left:auto;margin-right:auto;">Al completar la formación recibes un certificado emitido por Full Therapy — International Therapies, reconocido para ejercer como terapeuta en cualquier país.</p>
+    </div>
+    <div class="reveal" style="display:flex;flex-direction:column;align-items:center;gap:40px;">
+      <div style="position:relative;max-width:480px;width:100%;">
+        <img src="certificado.png" alt="Certificado de Finalización — Full Therapy" style="width:100%;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06) inset;">
+        <div style="position:absolute;top:-12px;right:-12px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:999px;">Internacional</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px;max-width:600px;">
+        <div class="glass" style="padding:18px 22px;border-radius:var(--r-md);display:flex;align-items:center;gap:12px;flex:1 1 220px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <div>
+            <div style="font-size:var(--t-sm);font-weight:600;color:var(--fg);">Nombre personalizado</div>
+            <div style="font-size:12px;color:var(--fg-dim);">Emitido a tu nombre</div>
+          </div>
+        </div>
+        <div class="glass" style="padding:18px 22px;border-radius:var(--r-md);display:flex;align-items:center;gap:12px;flex:1 1 220px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div>
+            <div style="font-size:var(--t-sm);font-weight:600;color:var(--fg);">Reconocimiento global</div>
+            <div style="font-size:12px;color:var(--fg-dim);">Válido en cualquier país</div>
+          </div>
+        </div>
+        <div class="glass" style="padding:18px 22px;border-radius:var(--r-md);display:flex;align-items:center;gap:12px;flex:1 1 220px;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          <div>
+            <div style="font-size:var(--t-sm);font-weight:600;color:var(--fg);">Solo Plan Completo</div>
+            <div style="font-size:12px;color:var(--fg-dim);">Incluido al finalizar el módulo 12</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════ SECTION 6 — PREÇO ═══════ -->
 <section id="preco">
   <div class="wrap">
-    <div class="price-wrap">
-      <div class="price-card glass strong reveal">
-        <div class="price__label">★ Oferta de lanzamiento</div>
+    <div class="section-head reveal" style="text-align:center;">
+      <span class="kicker">Oferta de lanzamiento</span>
+      <h2>Elige tu <em class="serif">plan</em></h2>
+    </div>
+    <div class="price-grid">
+
+      <!-- PLAN BÁSICO -->
+      <div class="price-card price-card--basic reveal" style="padding:36px 26px 32px;text-align:center;border-radius:var(--r-xl);border:1px solid rgba(255,255,255,0.07);">
+        <div class="price__label">Plan Básico</div>
+        <div class="price__strike">$97</div>
+        <div class="price__big"><span class="currency">$</span>9,90</div>
+        <p class="price__meta">Solo el método Reflexología Podal</p>
+        <ul class="price__list" style="margin-top:18px;">
+          <li>Método Reflexología Podal</li>
+          <li class="list-sep"></li>
+          <li>Acceso por 1 año</li>
+        </ul>
+        <button class="btn-basic" onclick="openPaySheet({plan:'basic'})">Empezar básico →</button>
+        <p class="price__trust">Pago seguro · Acceso en segundos</p>
+      </div>
+
+      <!-- PLAN COMPLETO -->
+      <div class="price-card glass strong price-card--featured reveal" style="padding:46px 26px 32px;text-align:center;">
+        <span class="price-badge-top">★ Más popular</span>
+        <div class="price__label">Plan Completo</div>
         <div class="price__strike">$597</div>
         <div class="price__big"><span class="currency">$</span>19,90</div>
-        <p class="price__meta">Acceso inmediato <span class="dot">·</span> 12 módulos + bonos <span class="dot">·</span> Certificación internacional</p>
-        <div class="price__badges">
-          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Acceso vitalicio</span>
-          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Certificación incluida</span>
-          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>7 días de garantía</span>
-          <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Soporte directo</span>
-        </div>
-        <div class="price__proof"><strong>Menos que una consulta.</strong> Formación completa por el precio de una única sesión particular — con acceso de por vida y actualizaciones incluidas.</div>
-        <a class="btn btn--primary" href="#preco" onclick="event.preventDefault(); openPaySheet({type:'pack'})">
+        <p class="price__meta">Todo lo que necesitas para ejercer</p>
+        <img src="plano-completo.png" alt="Todo lo que incluye el Plan Completo" style="width:100%;border-radius:12px;margin-top:18px;display:block;">
+        <ul class="price__list">
+          <li><strong>Los 12 módulos completos</strong></li>
+          <li class="list-sep"></li>
+          <li>Módulo 01 — Anatomía del pie</li>
+          <li>Módulo 02 — Mapa reflejo</li>
+          <li>Módulo 03 — Técnica de contacto</li>
+          <li>Módulo 04 — Protocolo de sesión</li>
+          <li>Módulo 05 — Estrés y ansiedad</li>
+          <li>Módulo 06 — Sueño y descanso</li>
+          <li>Módulo 07 — Dolor lumbar</li>
+          <li>Módulo 08 — Sistema digestivo</li>
+          <li>Módulo 09 — Sistema respiratorio</li>
+          <li>Módulo 10 — Salud femenina</li>
+          <li>Módulo 11 — Anamnesis clínica</li>
+          <li>Módulo 12 — Certificación final</li>
+          <li class="list-sep"></li>
+          <li><strong>Bono 01 — Hierbas medicinales</strong></li>
+          <li><strong>Bono 02 — Cómo elaborar la anamnesis</strong></li>
+          <li><strong>Bono 03 — Tés medicinales</strong></li>
+          <li class="list-sep"></li>
+          <li><strong>Certificación internacional</strong></li>
+          <li><strong>Acceso vitalicio</strong></li>
+          <li>Actualizaciones incluidas</li>
+          <li>Soporte directo</li>
+          <li>7 días de garantía</li>
+        </ul>
+        <div class="price__proof" style="margin-top:18px;"><strong>Menos que una consulta.</strong> Formación completa por el precio de una única sesión — con acceso de por vida y bonos incluidos.</div>
+        <a class="btn btn--primary" href="#preco" onclick="event.preventDefault(); openPaySheet({plan:'full'})" style="width:100%;margin-top:22px;height:60px;font-size:var(--t-md);">
           Inscribirme ahora
           <svg class="arrow" viewBox="0 0 24 24"><path d="M4.5 19.5L20 4M20 4H7M20 4V17"/></svg>
         </a>
         <p class="price__trust">Pago seguro · Acceso en segundos · Soporte 7 días</p>
       </div>
+
     </div>
   </div>
 </section>
@@ -1347,6 +1546,11 @@ updateSticky();
 
 /* ════ PAY SHEET ════ */
 function openPaySheet(ctx) {
+  const isBasic = ctx && ctx.plan === 'basic';
+  document.getElementById('paySheetSub').textContent = isBasic
+    ? 'Plan Básico · Módulos 1–6 · $9,90'
+    : 'Plan Completo · 12 módulos + bonos · $19,90';
+  window._payPlan = isBasic ? 'basic' : 'full';
   paySheet.classList.add("is-open");
   paySheet.setAttribute("aria-hidden", "false");
   payBackdrop.classList.add("is-open");
@@ -1368,9 +1572,13 @@ document.addEventListener("keydown", e => {
 });
 
 /* Cliques nos botões de pagamento */
+const PAY_URLS = {
+  basic: "https://pay.hotmart.com/C106687384E?off=ybsol3ih",
+  full:  "https://pay.hotmart.com/C106687384E?off=ybsol3ih"
+};
 document.querySelectorAll(".pay-opt").forEach(btn => {
   btn.addEventListener("click", () => {
-    window.location.href = "https://pay.hotmart.com/C106687384E?off=ybsol3ih";
+    window.location.href = PAY_URLS[window._payPlan || 'full'];
   });
 });
 
@@ -1401,15 +1609,30 @@ document.querySelectorAll(".pay-opt").forEach(btn => {
     track.style.transform=`translateX(${calcOffset(idx)}px)`;
     slides.forEach((s,i)=>{
       const v=s.querySelector("video");
+      const ov=s.querySelector("[data-play-overlay]");
       s.classList.toggle("is-active",i===idx);
-      if(i===idx){ v.play().catch(()=>{}); }
-      else { v.pause(); }
+      if(i!==idx){
+        v.pause();
+        if(ov) ov.classList.remove("hidden");
+      }
     });
     dots.forEach((d,i)=>d.classList.toggle("is-active",i===idx));
     prevBtn.disabled=(idx===0);
     nextBtn.disabled=(idx===slides.length-1);
     current=idx;
   }
+
+  /* Play overlay click — toca com som */
+  slides.forEach(slide=>{
+    const v=slide.querySelector("video");
+    const ov=slide.querySelector("[data-play-overlay]");
+    if(!ov) return;
+    ov.addEventListener("click",()=>{
+      v.play().then(()=>{ ov.classList.add("hidden"); }).catch(()=>{});
+    });
+    v.addEventListener("pause",()=>{ ov.classList.remove("hidden"); });
+    v.addEventListener("ended",()=>{ ov.classList.remove("hidden"); });
+  });
 
   prevBtn.addEventListener("click",()=>{ if(current>0) goTo(current-1); });
   nextBtn.addEventListener("click",()=>{ if(current<slides.length-1) goTo(current+1); });
